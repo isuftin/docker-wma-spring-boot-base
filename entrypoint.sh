@@ -35,7 +35,7 @@ if [ -f "/launch-app.sh" ]; then
   if [ ! -x "/launch-app.sh" ]; then 
     chmod +x /launch-app.sh;
   fi
-  
+
   /launch-app.sh $@
   
   if [ $? -eq 0 ]; then
@@ -46,5 +46,4 @@ if [ -f "/launch-app.sh" ]; then
 else
   echo "No executable /launch-app.sh found. Exiting."
 fi
-exec env "$@"
 exit 1
