@@ -10,7 +10,7 @@ COPY pull-from-artifactory.sh pull-from-artifactory.sh
 COPY entrypoint.sh entrypoint.sh
 COPY health-check.sh health-check.sh
 COPY launch-app.sh launch-app.sh
-RUN ["chmod", "+x", "*.sh"]
+RUN chmod +x "/"*.sh
 
 #Default ENV Values
 ENV requireSsl=true
