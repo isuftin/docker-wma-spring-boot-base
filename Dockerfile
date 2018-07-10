@@ -6,17 +6,11 @@ RUN set -x & \
   apk add --no-cache curl && \
   apk --no-cache add openssl
 
-ADD pull-from-artifactory.sh pull-from-artifactory.sh
-RUN ["chmod", "+x", "pull-from-artifactory.sh"]
-
-ADD entrypoint.sh entrypoint.sh
-RUN ["chmod", "+x", "entrypoint.sh"]
-
-ADD health-check.sh health-check.sh
-RUN ["chmod", "+x", "health-check.sh"]
-
-ADD launch-app.sh launch-app.sh
-RUN ["chmod", "+x", "launch-app.sh"]
+COPY pull-from-artifactory.sh pull-from-artifactory.sh
+COPY entrypoint.sh entrypoint.sh
+COPY health-check.sh health-check.sh
+COPY launch-app.sh launch-app.sh
+RUN ["chmod", "+x", "*.sh"]
 
 #Default ENV Values
 ENV requireSsl=true

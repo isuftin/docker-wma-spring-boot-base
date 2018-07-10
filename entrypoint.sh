@@ -31,18 +31,20 @@ if [ -d "${CERT_IMPORT_DIRECTORY}" ]; then
   done
 fi
 
-if [ -f "/launch-app.sh" ] && [ -x "/launch-app.sh" ]; then
+if [ -f "/launch-app.sh" ]; then
+  if [ ! -x "/launch-app.sh" ]; then 
+    chmod +x /launch-app.sh;
+  fi
+  
   /launch-app.sh $@
   
   if [ $? -eq 0 ]; then
     exit 0;
   else
     echo "An error occurred while attempting to run /launch-app.sh"
-    exit 1
   fi
 else
   echo "No executable /launch-app.sh found. Exiting."
-  exit 1
 fi
-
 exec env "$@"
+exit 1

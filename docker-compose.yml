@@ -6,7 +6,7 @@
       file: ./certificates/tomcat/tomcat-wildcard-dev.crt
     tomcat_ssl_key:
       file: ./certificates/tomcat/tomcat-wildcard-dev.key
-      
+
   services:
     wma-spring-boot-base:
       build: .
