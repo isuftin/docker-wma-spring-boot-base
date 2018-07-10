@@ -1,0 +1,22 @@
+---
+  version: '3.5'
+
+  secrets:
+    tomcat_ssl_crt:
+      file: ./certificates/tomcat/tomcat-wildcard-dev.crt
+    tomcat_ssl_key:
+      file: ./certificates/tomcat/tomcat-wildcard-dev.key
+
+  services:
+    wma-spring-boot-base:
+      build: .
+      image: wma-spring-boot-base
+      ports:
+        - "443:443"
+      secrets:
+        - source: tomcat_ssl_crt
+          target: /tomcat-wildcard-ssl.crt
+        - source: tomcat_ssl_key
+          target: /tomcat-wildcard-ssl.key
+      env_file:
+        - docker-compose.env
