@@ -1,8 +1,9 @@
 sudo: required
 
 env:
-  - DOCKER_COMPOSE_VERSION=1.21.1
-  - DOCKER_IMAGE=wma-spring-boot-base
+  global:
+    - DOCKER_COMPOSE_VERSION=1.21.1
+    - DOCKER_IMAGE=wma-spring-boot-base
 
 services:
   - docker
