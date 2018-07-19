@@ -19,7 +19,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - isuftin@usgs.gov - config.env now specific to spring's user's home
 - isuftin@usgs.gov - docker-compose now mounting ssl files in spring's home dir
 - isuftin@usgs.gov - entrypoint launching from spring's home dir
-- isuftin@usgs.gov - entrypoint launching from spring's home dir
 
 ### Removed
 - isutftin@usgs.gov - Removed health check script, added inline to Dockerfile
