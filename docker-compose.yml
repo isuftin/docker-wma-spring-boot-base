@@ -15,9 +15,9 @@
         - "443:443"
       secrets:
         - source: tomcat_ssl_crt
-          target: /tomcat-wildcard-ssl.crt
+          target: /home/spring/tomcat-wildcard-ssl.crt
         - source: tomcat_ssl_key
-          target: /tomcat-wildcard-ssl.key
+          target: /home/spring/tomcat-wildcard-ssl.key
       env_file:
         - config.env
         - secrets.env
