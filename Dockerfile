@@ -1,18 +1,8 @@
 FROM openjdk:8-jdk-alpine
 
-RUN set -x & \
-  apk update && \
-  apk upgrade && \
-  apk add --no-cache curl && \
-  apk --no-cache add openssl
-
-COPY pull-from-artifactory.sh pull-from-artifactory.sh
-COPY entrypoint.sh entrypoint.sh
-COPY health-check.sh health-check.sh
-COPY launch-app.sh launch-app.sh
-RUN chmod +x "/"*.sh
-
 #Default ENV Values
+ENV USER=spring
+ENV HOME=/home/$USER
 ENV requireSsl=true
 ENV serverPort=443
 ENV serverContextPath=/
@@ -33,6 +23,22 @@ ENV JAVA_STOREPASS=changeit
 ENV HEALTH_CHECK_ENDPOINT=health
 ENV HEALTHY_RESPONSE_CONTAINS='{"status":"UP"}'
 
-ENTRYPOINT [ "/entrypoint.sh"]
+RUN apk update && \
+  apk upgrade && \
+  apk --no-cache add openssl curl && \
+  rm -rf /var/cache/apk/*
 
-HEALTHCHECK CMD /health-check.sh
+RUN adduser -D -u 1000 $USER
+
+WORKDIR $HOME
+COPY pull-from-artifactory.sh pull-from-artifactory.sh
+COPY entrypoint.sh entrypoint.sh
+COPY health-check.sh health-check.sh
+COPY launch-app.sh launch-app.sh
+RUN [ "chmod", "+x", "pull-from-artifactory.sh", "entrypoint.sh", "health-check.sh", "launch-app.sh" ]
+RUN chown $USER:$USER pull-from-artifactory.sh entrypoint.sh health-check.sh launch-app.sh
+USER $USER
+
+ENTRYPOINT [ "./entrypoint.sh"]
+
+HEALTHCHECK CMD health-check.sh
