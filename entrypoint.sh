@@ -9,11 +9,8 @@ if [ -z "$keystoreLocation" ]; then
   exit 1
 fi
 
-if [ -z "${KEYSTORE_PASSWORD_FILE}" ]; then
-  echo "Keystore password file not specified. Exiting."
-  exit 1
-elif [ ! -f "${KEYSTORE_PASSWORD_FILE}" ]; then
-  echo "Keystore password file @ ${KEYSTORE_PASSWORD_FILE} not found. Exiting."
+if [ -z "${keystorePassword}" ]; then
+  echo "Keystore password not provided"
   exit 1
 fi
 
@@ -65,5 +62,4 @@ if [ -f "${launch_app}" ]; then
 else
   echo "No executable ${launch_app} found. Exiting."
 fi
-
 exit 1
