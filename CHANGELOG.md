@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - zmoore@usgs.gov - Initial creation
 - isuftin@usgs.gov - config.env and secrets.env
+- isuftin@usgs.gov - maintainer label
 
 ### Updated
 - isuftin@usgs.gov - Shebang on all shell scripts to use /bin/ash

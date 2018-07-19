@@ -1,5 +1,7 @@
 FROM openjdk:8-jdk-alpine
 
+LABEL maintaner="gs-w_eto@usgs.gov"
+
 #Default ENV Values
 ENV USER=spring
 ENV HOME=/home/$USER
