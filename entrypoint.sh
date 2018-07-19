@@ -4,10 +4,8 @@ if [ -f "$keystoreLocation" ]; then
   rm $keystoreLocation
 fi
 
-if [ -n "${KEYSTORE_PASSWORD_FILE}" ] && [ -f "${KEYSTORE_PASSWORD_FILE}" ]; then
-  keystorePassword=`cat $KEYSTORE_PASSWORD_FILE`
-elif [ -n "${KEYSTORE_PASSWORD_FILE}" ]; then
-  echo "Keystore Password File specified as ${KEYSTORE_PASSWORD_FILE} not found. Exiting."
+if [ -z "${keystorePassword}" ]; then
+  echo "Keystore password not provided"
   exit 1
 fi
 
@@ -32,12 +30,12 @@ if [ -d "${CERT_IMPORT_DIRECTORY}" ]; then
 fi
 
 if [ -f "/launch-app.sh" ]; then
-  if [ ! -x "/launch-app.sh" ]; then 
+  if [ ! -x "/launch-app.sh" ]; then
     chmod +x /launch-app.sh;
   fi
 
   /launch-app.sh $@
-  
+
   if [ $? -eq 0 ]; then
     exit 0;
   else
