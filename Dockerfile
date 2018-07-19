@@ -35,10 +35,9 @@ RUN adduser -D -u 1000 $USER
 WORKDIR $HOME
 COPY pull-from-artifactory.sh pull-from-artifactory.sh
 COPY entrypoint.sh entrypoint.sh
-COPY health-check.sh health-check.sh
 COPY launch-app.sh launch-app.sh
-RUN [ "chmod", "+x", "pull-from-artifactory.sh", "entrypoint.sh", "health-check.sh", "launch-app.sh" ]
-RUN chown $USER:$USER pull-from-artifactory.sh entrypoint.sh health-check.sh launch-app.sh
+RUN [ "chmod", "+x", "pull-from-artifactory.sh", "entrypoint.sh", "launch-app.sh" ]
+RUN chown $USER:$USER pull-from-artifactory.sh entrypoint.sh launch-app.sh
 USER $USER
 
 ENTRYPOINT [ "./entrypoint.sh"]
