@@ -1,6 +1,19 @@
 ---
   version: '3.5'
 
+  x-config:
+    &default-config
+    ports:
+      - "443:443"
+    secrets:
+      - source: tomcat_ssl_crt
+        target: /home/spring/tomcat-wildcard-ssl.crt
+      - source: tomcat_ssl_key
+        target: /home/spring/tomcat-wildcard-ssl.key
+    env_file:
+      - config.env
+      - secrets.env
+
   secrets:
     tomcat_ssl_crt:
       file: ./certificates/tomcat/tomcat-wildcard-dev.crt
@@ -8,19 +21,18 @@
       file: ./certificates/tomcat/tomcat-wildcard-dev.key
 
   services:
-    wma-spring-boot-base:
+    wma-spring-boot-base-java-8:
       build:
         context: .
-        args: 
+        args:
           OPENJDK_TAG: '8-jre-slim'
-      image: wma-spring-boot-base
-      ports:
-        - "443:443"
-      secrets:
-        - source: tomcat_ssl_crt
-          target: /home/spring/tomcat-wildcard-ssl.crt
-        - source: tomcat_ssl_key
-          target: /home/spring/tomcat-wildcard-ssl.key
-      env_file:
-        - config.env
-        - secrets.env
+      image: wma-spring-boot-base:8-jre-slim
+      << : *default-config
+
+    wma-spring-boot-base-java-10:
+      build:
+        context: .
+        args:
+          OPENJDK_TAG: '10.0.1-jre-slim'
+      image: wma-spring-boot-base:10.0.1-jre-slim
+      << : *default-config
