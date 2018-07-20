@@ -1,6 +1,9 @@
 sudo: required
 
 env:
+  matrix:
+    - service=wma-spring-boot-base-java-8
+    - service=wma-spring-boot-base-java-10
   global:
     - DOCKER_COMPOSE_VERSION=1.21.1
     - DOCKER_IMAGE=wma-spring-boot-base
@@ -21,8 +24,8 @@ before_install:
   - git clone https://github.com/docker/docker-bench-security.git
 
 install:
-  - docker build -t $DOCKER_IMAGE .
-  - docker-compose -f docker-compose.yml up -d
+  # - docker build -t $DOCKER_IMAGE .
+  - docker-compose up ${service} --build -d
 
 script:
   - cd docker-bench-security
