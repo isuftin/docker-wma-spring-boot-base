@@ -21,7 +21,7 @@
       file: ./certificates/tomcat/tomcat-wildcard-dev.key
 
   services:
-    wma-spring-boot-base-java-8:
+    8-jre-slim:
       build:
         context: .
         args:
@@ -29,7 +29,7 @@
       image: wma-spring-boot-base:8-jre-slim
       << : *default-config
 
-    wma-spring-boot-base-java-10:
+    10.0.1-jre-slim:
       build:
         context: .
         args:
