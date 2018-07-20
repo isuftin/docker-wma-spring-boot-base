@@ -29,7 +29,8 @@ ENV HEALTH_CHECK_ENDPOINT=health
 ENV HEALTHY_RESPONSE_CONTAINS='{"status":"UP"}'
 
 RUN apt-get update && \
-  apt-get upgrade -y
+  apt-get upgrade -y && \
+  apt-get install curl -y
 
 RUN adduser --disabled-password --gecos "" -u 1000 $USER
 
@@ -40,8 +41,6 @@ COPY launch-app.sh launch-app.sh
 RUN [ "chmod", "+x", "pull-from-artifactory.sh", "entrypoint.sh", "launch-app.sh" ]
 RUN chown $USER:$USER pull-from-artifactory.sh entrypoint.sh launch-app.sh
 USER $USER
-
-RUN java -version
 
 ENTRYPOINT [ "./entrypoint.sh"]
 
