@@ -36,3 +36,11 @@
           OPENJDK_TAG: '10.0.1-jre-slim'
       image: wma-spring-boot-base:10.0.1-jre-slim
       << : *default-config
+
+    latest:
+      build:
+        context: .
+        args:
+          OPENJDK_TAG: '10.0.1-jre-slim'
+      image: wma-spring-boot-base:latest
+      << : *default-config
