@@ -12,7 +12,7 @@
       build:
         context: .
         args: 
-          OPENJDK_TAG: '8-jre-slim'
+          OPENJDK_TAG: '10.0.1-jre-slim'
       image: wma-spring-boot-base
       ports:
         - "443:443"
