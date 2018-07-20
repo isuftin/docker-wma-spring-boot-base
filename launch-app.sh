@@ -1,5 +1,4 @@
-#!/bin/ash
-# shellcheck shell=dash
+#!/bin/bash
 
 maxHeapSpace=${maxHeapSpace:-"300M"}
 keystorePassword=${keystorePassword:?}
