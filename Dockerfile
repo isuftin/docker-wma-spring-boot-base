@@ -1,4 +1,7 @@
-FROM openjdk:8-jdk-alpine
+#Build Args
+ARG OPENJDK_TAG=8-jre-slim
+
+FROM openjdk:${OPENJDK_TAG}
 
 LABEL maintaner="gs-w_eto@usgs.gov"
 
@@ -25,12 +28,11 @@ ENV JAVA_STOREPASS=changeit
 ENV HEALTH_CHECK_ENDPOINT=health
 ENV HEALTHY_RESPONSE_CONTAINS='{"status":"UP"}'
 
-RUN apk update && \
-  apk upgrade && \
-  apk --no-cache add openssl curl && \
-  rm -rf /var/cache/apk/*
+RUN apt-get update && \
+  apt-get upgrade -y && \
+  apt-get install curl -y
 
-RUN adduser -D -u 1000 $USER
+RUN adduser --disabled-password --gecos "" -u 1000 $USER
 
 WORKDIR $HOME
 COPY pull-from-artifactory.sh pull-from-artifactory.sh

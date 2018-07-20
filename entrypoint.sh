@@ -1,5 +1,4 @@
-#!/bin/ash
-# shellcheck shell=dash
+#!/bin/bash
 
 keystoreLocation=${keystoreLocation:?}
 keystoreSSLKey=${keystoreSSLKey:?}
