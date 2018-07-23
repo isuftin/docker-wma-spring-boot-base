@@ -1,17 +1,17 @@
-#!/bin/ash
-# shellcheck shell=dash
+#!/bin/bash
 
 repo_url="https://cida.usgs.gov/artifactory/$1"
 group=$2
 artifact=$3
 version=$4
 output=$5
+artifact_type=${6:-"jar"}
 uri_formatted_group=`echo $group | tr . /`
 if [ "$version" = "LATEST" ] || [ "$version" = "latest" ]; then
     version=`curl -k -s $repo_url/"$(echo "$group" | tr . /)"/$artifact/maven-metadata.xml | grep latest | sed "s/.*<latest>\([^<]*\)<\/latest>.*/\1/"`
 fi
 
-resource_endpoint="${repo_url}/${uri_formatted_group}/${artifact}/${version}/${artifact}-${version}.jar"
+resource_endpoint="${repo_url}/${uri_formatted_group}/${artifact}/${version}/${artifact}-${version}.${artifact_type}"
 
 echo "fetch $resource_endpoint"
 curl -k -o $output -X GET "${resource_endpoint}"
