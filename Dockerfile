@@ -29,8 +29,8 @@ ENV HEALTH_CHECK_ENDPOINT=health
 ENV HEALTHY_RESPONSE_CONTAINS='{"status":"UP"}'
 
 RUN apt-get update && \
-  apt-get upgrade -y && \
-  apt-get install curl -y
+  apt-get install curl -y && \
+  rm -rf /var/lib/apt/lists/*
 
 RUN adduser --disabled-password --gecos "" -u 1000 $USER
 
