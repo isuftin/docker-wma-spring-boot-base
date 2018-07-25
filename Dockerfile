@@ -5,7 +5,6 @@ FROM openjdk:${OPENJDK_TAG}
 
 LABEL maintaner="gs-w_eto@usgs.gov"
 
-#Default ENV Values
 ENV USER=spring
 ENV HOME=/home/$USER
 ENV requireSsl=true
