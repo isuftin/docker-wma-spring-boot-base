@@ -17,8 +17,7 @@ ENV springFrameworkLogLevel=info
 ENV keystoreLocation=$HOME/localkeystore.pkcs12
 ENV keystorePassword=changeme
 ENV keystoreSSLKey=tomcat
-ENV JAVA_OPTIONS="-Xmx300M -server"
-ENV JAVA_ARGUMENTS="-Djava.security.egd=file:/dev/./urandom"
+ENV JAVA_OPTIONS="-Xmx300M -server -Djava.security.egd=file:/dev/./urandom"
 
 RUN apt-get update && \
   apt-get install --no-install-recommends --no-upgrade curl -y && \
