@@ -3,7 +3,7 @@ ARG OPENJDK_TAG=8-jre-slim
 
 FROM openjdk:${OPENJDK_TAG}
 
-LABEL maintaner="gs-w_eto@usgs.gov"
+LABEL maintainer="gs-w_eto_eb_federal_employees@usgs.gov"
 
 ENV USER=spring
 ENV HOME=/home/$USER
