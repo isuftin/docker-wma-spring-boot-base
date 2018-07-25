@@ -3,7 +3,7 @@ sudo: required
 env:
   matrix:
     - service=8-jre-slim
-    - service=10.0.1-jre-slim
+    - service=10-jre-slim
   global:
     - DOCKER_COMPOSE_VERSION=1.21.1
     - DOCKER_IMAGE=wma-spring-boot-base
