@@ -9,15 +9,14 @@ ENV HOME=/home/$USER
 ENV SPRING_CLOUD_CONFIG_ENABLED=false
 ENV TOMCAT_CERT_PATH=$HOME/tomcat-wildcard-ssl.crt
 ENV TOMCAT_KEY_PATH=$HOME/tomcat-wildcard-ssl.key
-ENV JAVA_KEYSTORE=$HOME/cacerts
-ENV JAVA_STOREPASS=changeit
+ENV JAVA_TRUSTSTORE=$HOME/cacerts
+ENV JAVA_TRUSTSTORE_PASS=changeit
 ENV HEALTH_CHECK_ENDPOINT=health
 ENV HEALTHY_RESPONSE_CONTAINS='{"status":"UP"}'
 ENV springFrameworkLogLevel=info
 ENV keystoreLocation=$HOME/localkeystore.pkcs12
 ENV keystorePassword=changeme
 ENV keystoreSSLKey=tomcat
-ENV JAVA_OPTIONS="-Xmx300M -server -Djava.security.egd=file:/dev/./urandom"
 
 RUN apt-get update && \
   apt-get install --no-install-recommends --no-upgrade curl -y && \
