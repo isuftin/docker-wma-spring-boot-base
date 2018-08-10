@@ -4,6 +4,8 @@ FROM openjdk:${OPENJDK_TAG}
 
 LABEL maintainer="gs-w_eto_eb_federal_employees@usgs.gov"
 
+ENV artifact_version=0.0.1-SNAPSHOT
+
 ENV USER=spring
 ENV HOME=/home/$USER
 ENV SPRING_CLOUD_CONFIG_ENABLED=false
@@ -31,6 +33,8 @@ COPY launch-app.sh launch-app.sh
 RUN [ "chmod", "+x", "pull-from-artifactory.sh", "entrypoint.sh", "launch-app.sh" ]
 RUN chown $USER:$USER pull-from-artifactory.sh entrypoint.sh launch-app.sh
 USER $USER
+
+RUN ./pull-from-artifactory.sh wma-maven-centralized gov.usgs.wma spring-boot-sample ${artifact_version} app.jar
 
 CMD [ "./entrypoint.sh"]
 
