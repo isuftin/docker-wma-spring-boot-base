@@ -14,7 +14,7 @@ if [ -n "${TOMCAT_CERT_PATH}" ] && [ -n "${TOMCAT_KEY_PATH}" ] && [ -f "${TOMCAT
   # Therefore I copy the Java keystore to a local area. The source location
   # for the Java keystore is /etc/ssl/certs/java/cacerts for this image
   # (openjdk:8-jdk-alpine) but may differ on other images
-  keytool -importkeystore -srckeystore /etc/ssl/certs/java/cacerts -srcstorepass $JAVA_STOREPASS -destkeystore $JAVA_KEYSTORE -deststorepass $JAVA_STOREPASS
+  keytool -importkeystore -srckeystore /etc/ssl/certs/java/cacerts -srcstorepass $JAVA_TRUSTSTORE_PASS -destkeystore $JAVA_TRUSTSTORE -deststorepass $JAVA_TRUSTSTORE_PASS
   openssl pkcs12 -export -in $TOMCAT_CERT_PATH -inkey $TOMCAT_KEY_PATH -name $keystoreSSLKey -out $HOME/tomcat.pkcs12 -password pass:$keystorePassword
   keytool -v -importkeystore -deststorepass $keystorePassword -destkeystore $keystoreLocation -deststoretype PKCS12 -srckeystore $HOME/tomcat.pkcs12 -srcstorepass $keystorePassword -srcstoretype PKCS12 -noprompt
 fi
@@ -24,12 +24,12 @@ if [ -n "${CERT_IMPORT_DIRECTORY}" ] && [ -d "${CERT_IMPORT_DIRECTORY}" ]; then
     FILENAME="${c}"
 
     echo "Checking for certificate $FILENAME already existing  in Java keystore."
-    keytool -list -keystore $JAVA_KEYSTORE -alias $FILENAME -storepass $JAVA_STOREPASS
+    keytool -list -keystore $JAVA_TRUSTSTORE -alias $FILENAME -storepass $JAVA_TRUSTSTORE_PASS
     if [ $? -eq 0 ]; then
       echo "Alias ${FILENAME} already exists in keystore. Skipping."
     else
       echo "Importing ${FILENAME}"
-      keytool -importcert -noprompt -trustcacerts -file $FILENAME -alias $FILENAME -keystore $JAVA_KEYSTORE -storepass $JAVA_STOREPASS -noprompt;
+      keytool -importcert -noprompt -trustcacerts -file $FILENAME -alias $FILENAME -keystore $JAVA_TRUSTSTORE -storepass $JAVA_TRUSTSTORE_PASS -noprompt;
     fi
 
   done

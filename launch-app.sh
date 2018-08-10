@@ -1,6 +1,6 @@
 #!/bin/bash
 
-JAVA_OPTIONS=${JAVA_OPTIONS:-"-server"}
+JAVA_OPTIONS=${JAVA_OPTIONS:-"-server -Djavax.net.ssl.trustStore=${JAVA_TRUSTSTORE} -Djavax.net.ssl.trustStorePassword=${JAVA_TRUSTSTORE_PASS}"}
 JAVA_ARGUMENTS="${JAVA_ARGUMENTS:-""}"
 
 echo "Using default /launch-app.sh.."
