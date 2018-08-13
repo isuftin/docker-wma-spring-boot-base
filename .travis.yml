@@ -24,10 +24,9 @@ before_install:
   - git clone https://github.com/docker/docker-bench-security.git
 
 install:
-  - docker-compose build
+  - docker-compose up --build $service
 
 script:
-  - docker-compose up $service
   - sleep 5 && curl -k -s "https://$(ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'):443/hello/world" | grep -q "Hello World!"
   - cd docker-bench-security
   - sudo sh docker-bench-security.sh -c container_images

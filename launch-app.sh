@@ -1,6 +1,10 @@
 #!/bin/bash
+if [ -z "$JAVA_OPTIONS" ]; then
+    JAVA_OPTIONS=$(eval echo $JAVA_OPTIONS)
+else
+    JAVA_OPTIONS="-Xmx300M -server -Djava.security.egd=file:/dev/./urandom"
+fi
 
-JAVA_OPTIONS=${JAVA_OPTIONS:-"-Xmx300M -server -Djava.security.egd=file:/dev/./urandom -Djavax.net.ssl.trustStore=${JAVA_TRUSTSTORE} -Djavax.net.ssl.trustStorePassword=${JAVA_TRUSTSTORE_PASS}"}
 JAVA_ARGUMENTS="${JAVA_ARGUMENTS:-""}"
 
 echo "Using default /launch-app.sh.."

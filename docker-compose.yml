@@ -27,6 +27,8 @@
         args:
           OPENJDK_TAG: '8-jre-slim'
       image: wma-spring-boot-base:8-jre-slim-latest
+      environment: 
+        - JAVA_OPTIONS=-Xmx300M -server -Djava.security.egd=file:/dev/./urandom -Djavax.net.ssl.trustStore=$${JAVA_TRUSTSTORE} -Djavax.net.ssl.trustStorePassword=$${JAVA_TRUSTSTORE_PASS}
       << : *default-config
 
     10-jre-slim:
@@ -35,6 +37,8 @@
         args:
           OPENJDK_TAG: '10-jre-slim'
       image: wma-spring-boot-base:10-jre-slim-latest
+      environment: 
+        - JAVA_OPTIONS=-Xmx300M -server -Djava.security.egd=file:/dev/./urandom
       << : *default-config
 
     latest:
@@ -43,4 +47,6 @@
         args:
           OPENJDK_TAG: '8-jre-slim'
       image: wma-spring-boot-base:latest
+      environment: 
+        - JAVA_OPTIONS=-Xmx300M -server -Djava.security.egd=file:/dev/./urandom -Djavax.net.ssl.trustStore=$${JAVA_TRUSTSTORE} -Djavax.net.ssl.trustStorePassword=$${JAVA_TRUSTSTORE_PASS}
       << : *default-config
