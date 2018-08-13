@@ -2,7 +2,7 @@
 if [ -z "$JAVA_OPTIONS" ]; then
     JAVA_OPTIONS=$(eval echo $JAVA_OPTIONS)
 else
-    JAVA_OPTIONS="-Xmx300M -server -Djava.security.egd=file:/dev/./urandom"
+    JAVA_OPTIONS=""
 fi
 
 JAVA_ARGUMENTS="${JAVA_ARGUMENTS:-""}"

@@ -1,4 +1,5 @@
 ARG OPENJDK_TAG=8-jre-slim
+ARG DEFAULT_JAVA_OPTIONS="-Xmx300M -server -Djava.security.egd=file:/dev/./urandom -Djavax.net.ssl.trustStore=${JAVA_TRUSTSTORE} -Djavax.net.ssl.trustStorePassword=${JAVA_TRUSTSTORE_PASS}"
 
 FROM openjdk:${OPENJDK_TAG}
 
@@ -13,6 +14,7 @@ ENV TOMCAT_CERT_PATH=$HOME/tomcat-wildcard-ssl.crt
 ENV TOMCAT_KEY_PATH=$HOME/tomcat-wildcard-ssl.key
 ENV JAVA_TRUSTSTORE=$HOME/cacerts
 ENV JAVA_TRUSTSTORE_PASS=changeit
+ENV JAVA_OPTIONS=${DEFAULT_JAVA_OPTIONS}
 ENV HEALTH_CHECK_ENDPOINT=health
 ENV HEALTHY_RESPONSE_CONTAINS='{"status":"UP"}'
 ENV springFrameworkLogLevel=info
@@ -35,6 +37,8 @@ RUN chown $USER:$USER pull-from-artifactory.sh entrypoint.sh launch-app.sh
 USER $USER
 
 RUN ./pull-from-artifactory.sh wma-maven-centralized gov.usgs.wma spring-boot-sample ${artifact_version} app.jar
+
+ONBUILD RUN echo "Removing sample app.jar..." && rm app.jar && rm artifact-metadata.txt
 
 CMD [ "./entrypoint.sh"]
 
