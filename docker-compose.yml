@@ -3,8 +3,9 @@
 
   x-config:
     &default-config
+    container_name: wma-spring-boot-base
     ports:
-      - "443:443"
+      - "8443:8443"
     secrets:
       - source: tomcat_ssl_crt
         target: /home/spring/tomcat-wildcard-ssl.crt
@@ -34,6 +35,7 @@
         context: .
         args:
           OPENJDK_TAG: '10-jre-slim'
+          DEFAULT_JAVA_OPTIONS: '-Xmx300M -server -Djava.security.egd=file:/dev/./urandom'
       image: wma-spring-boot-base:10-jre-slim-latest
       << : *default-config
 
