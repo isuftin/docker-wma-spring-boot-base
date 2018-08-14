@@ -3,6 +3,7 @@
 
   x-config:
     &default-config
+    container_name: wma-spring-boot-base
     ports:
       - "8443:8443"
     secrets:
