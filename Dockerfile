@@ -1,7 +1,8 @@
 ARG OPENJDK_TAG=8-jre-slim
-ARG DEFAULT_JAVA_OPTIONS="-Xmx300M -server -Djava.security.egd=file:/dev/./urandom -Djavax.net.ssl.trustStore=${JAVA_TRUSTSTORE} -Djavax.net.ssl.trustStorePassword=${JAVA_TRUSTSTORE_PASS}"
 
 FROM openjdk:${OPENJDK_TAG}
+
+ARG DEFAULT_JAVA_OPTIONS="-Xmx300M -server -Djava.security.egd=file:/dev/./urandom -Djavax.net.ssl.trustStore=\${JAVA_TRUSTSTORE} -Djavax.net.ssl.trustStorePassword=\${JAVA_TRUSTSTORE_PASS}"
 
 LABEL maintainer="gs-w_eto_eb_federal_employees@usgs.gov"
 
@@ -14,10 +15,11 @@ ENV TOMCAT_CERT_PATH=$HOME/tomcat-wildcard-ssl.crt
 ENV TOMCAT_KEY_PATH=$HOME/tomcat-wildcard-ssl.key
 ENV JAVA_TRUSTSTORE=$HOME/cacerts
 ENV JAVA_TRUSTSTORE_PASS=changeit
-ENV JAVA_OPTIONS=${DEFAULT_JAVA_OPTIONS}
+ENV JAVA_OPTIONS=$DEFAULT_JAVA_OPTIONS
 ENV HEALTH_CHECK_ENDPOINT=actuator/health
 ENV HEALTHY_RESPONSE_CONTAINS={"status":"UP"}
 ENV springFrameworkLogLevel=info
+ENV requireSsl=true
 ENV serverPort=8443
 ENV serverContextPath=/
 ENV keystoreLocation=$HOME/localkeystore.pkcs12
