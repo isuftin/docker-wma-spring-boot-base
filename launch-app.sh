@@ -5,9 +5,9 @@
 # $$ which ends up putting your variables as strings into $JAVA_OPTIONS so we need to use
 # eval to subtitute in the proper values once the container is running.
 if [ -z "$JAVA_OPTIONS" ]; then
-    JAVA_OPTIONS=$(eval echo $JAVA_OPTIONS)
+    JAVA_OPTIONS="-server -Djava.security.egd=file:/dev/./urandom"
 else
-    JAVA_OPTIONS=""
+    JAVA_OPTIONS=$(eval echo $JAVA_OPTIONS)
 fi
 
 JAVA_ARGUMENTS="${JAVA_ARGUMENTS:-""}"
