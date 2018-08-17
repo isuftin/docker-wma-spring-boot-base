@@ -25,6 +25,7 @@ ENV serverContextPath=/
 ENV keystoreLocation=$HOME/localkeystore.pkcs12
 ENV keystorePassword=changeme
 ENV keystoreSSLKey=tomcat
+ENV LAUNCH_APP_SCRIPT=$HOME/launch-app.sh
 
 RUN apt-get update && \
   apt-get install --no-install-recommends --no-upgrade curl -y && \
@@ -33,14 +34,13 @@ RUN apt-get update && \
 RUN adduser --disabled-password --gecos "" -u 1000 $USER
 
 WORKDIR $HOME
-COPY pull-from-artifactory.sh pull-from-artifactory.sh
-COPY entrypoint.sh entrypoint.sh
-COPY launch-app.sh launch-app.sh
-RUN [ "chmod", "+x", "pull-from-artifactory.sh", "entrypoint.sh", "launch-app.sh" ]
-RUN chown $USER:$USER pull-from-artifactory.sh entrypoint.sh launch-app.sh
+COPY --chown=1000:1000 pull-from-artifactory.sh pull-from-artifactory.sh
+COPY --chown=1000:1000 entrypoint.sh entrypoint.sh
+COPY --chown=1000:1000 launch-app.sh $LAUNCH_APP_SCRIPT
+RUN chmod +x pull-from-artifactory.sh entrypoint.sh $LAUNCH_APP_SCRIPT
 USER $USER
 
-RUN ./pull-from-artifactory.sh wma-maven-centralized gov.usgs.wma spring-boot-sample ${artifact_version} app.jar
+RUN ./pull-from-artifactory.sh wma-maven-centralized gov.usgs.wma spring-boot-sample $artifact_version app.jar
 
 CMD [ "./entrypoint.sh"]
 
