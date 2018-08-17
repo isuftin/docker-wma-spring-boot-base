@@ -40,19 +40,30 @@ else
   echo "WARNING: Cert import directory not found at '$CERT_IMPORT_DIRECTORY'. No additional certs will be imported into '$JAVA_TRUSTSTORE'."
 fi
 
-launch_app="${HOME}/launch-app.sh"
-if [ -f "${launch_app}" ]; then
-  if [ ! -x "${launch_app}" ]; then
-    chmod +x $launch_app
+# NOTE: This is needed because if Java Options are set from the DEFAULT_JAVA_OPTIONS
+# build ARG we need to have any container environment references in the ARG escaped
+# since the environment variables they reference aren't defined until further down in
+# the Dockerfile. Thus we need to evalute those escaped environment references now.
+if [ -z "$JAVA_OPTIONS" ]; then
+    JAVA_OPTIONS="-server -Djava.security.egd=file:/dev/./urandom"
+else
+    echo "Evaluating Java run options: $JAVA_OPTIONS"
+    JAVA_OPTIONS=$(eval echo $JAVA_OPTIONS)
+fi
+
+# Look for and execute the launch-app script.
+if [ -f "${LAUNCH_APP_SCRIPT}" ]; then
+  if [ ! -x "${LAUNCH_APP_SCRIPT}" ]; then
+    chmod +x $LAUNCH_APP_SCRIPT
   fi
-  $launch_app "$@"
+  $LAUNCH_APP_SCRIPT "$@"
 
   if [ $? -eq 0 ]; then
     exit 0;
   else
-    echo "An error occurred while attempting to run ${launch_app}"
+    echo "An error occurred while attempting to run ${LAUNCH_APP_SCRIPT}. Exiting."
   fi
 else
-  echo "No executable ${launch_app} found. Exiting."
+  echo "No executable ${LAUNCH_APP_SCRIPT} found. Exiting."
 fi
 exit 1
