@@ -5,6 +5,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [UNRELEASED]
 ### Added
+- isuftin@usgs.gov - Added wait-for.sh (and the netcat package) to help with
+downstream container start orchestration
+
+## [0.0.1] - 2018-07-12
+### Added
 - zmoore@usgs.gov - Initial creation
 - isuftin@usgs.gov - config.env and secrets.env
 - isuftin@usgs.gov - maintainer label
