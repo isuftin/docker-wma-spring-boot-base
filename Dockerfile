@@ -44,7 +44,7 @@ RUN ./pull-from-artifactory.sh wma-maven-centralized gov.usgs.wma spring-boot-sa
 
 # This is used for downstream containers that may need this scripting in order to
 # orchestrate container startups.
-# See:
+# See: https://github.com/eficode/wait-for
 RUN curl -o ./wait-for.sh https://raw.githubusercontent.com/eficode/wait-for/f71f8199a0dd95953752fb5d3f76f79ced16d47d/wait-for && \
   chmod +x ./wait-for.sh
 
