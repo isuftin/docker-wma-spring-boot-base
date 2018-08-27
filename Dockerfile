@@ -28,7 +28,7 @@ ENV keystoreSSLKey=tomcat
 ENV LAUNCH_APP_SCRIPT=$HOME/launch-app.sh
 
 RUN apt-get update && \
-  apt-get install --no-install-recommends --no-upgrade curl -y && \
+  apt-get install --no-install-recommends --no-upgrade curl netcat -y && \
   rm -rf /var/lib/apt/lists/*
 
 RUN adduser --disabled-password --gecos "" -u 1000 $USER
@@ -41,6 +41,12 @@ RUN chmod +x pull-from-artifactory.sh entrypoint.sh $LAUNCH_APP_SCRIPT
 USER $USER
 
 RUN ./pull-from-artifactory.sh wma-maven-centralized gov.usgs.wma spring-boot-sample $artifact_version app.jar
+
+# This is used for downstream containers that may need this scripting in order to
+# orchestrate container startups.
+# See:
+RUN curl -o ./wait-for.sh https://raw.githubusercontent.com/eficode/wait-for/f71f8199a0dd95953752fb5d3f76f79ced16d47d/wait-for && \
+  chmod +x ./wait-for.sh
 
 CMD [ "./entrypoint.sh"]
 
