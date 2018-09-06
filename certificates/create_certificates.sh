@@ -1,4 +1,6 @@
-#!/bin/bash -e
+#!/bin/bash
+
+# Most of the content pulled from https://raymii.org/s/tutorials/OpenSSL_command_line_Root_and_Intermediate_CA_including_OCSP_CRL%20and_revocation.html
 
 SUBJ=${SUBJ:-/C=US/ST=Wisconsin/L=Middleon/O=US Geological Survey/OU=WMA/CN=*}
 rm -rf ./root
