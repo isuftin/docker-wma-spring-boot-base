@@ -1,2 +1,2 @@
-./certificates/intermediate/**
-./certificates/root/**
+**/certificates/intermediate1/
+**/certificates/root/
