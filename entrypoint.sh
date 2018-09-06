@@ -16,7 +16,15 @@ if [ -n "${TOMCAT_CERT_PATH}" ] && [ -n "${TOMCAT_KEY_PATH}" ] && [ -f "${TOMCAT
     rm $keystoreLocation
   fi
 
-  openssl pkcs12 -export -in $TOMCAT_CERT_PATH -inkey $TOMCAT_KEY_PATH -name $keystoreSSLKey -out $HOME/tomcat.pkcs12 -password pass:$keystorePassword
+  # Include the chain cert, if it exists
+  if [ -n "${TOMCAT_CHAIN_PATH}" ] && [ -f "${TOMCAT_CHAIN_PATH}" ]; then
+    echo "Found intermediate cert, including in keystore creation."
+    openssl pkcs12 -export -CAfile $TOMCAT_CHAIN_PATH -in $TOMCAT_CERT_PATH -inkey $TOMCAT_KEY_PATH -name $keystoreSSLKey -out $HOME/tomcat.pkcs12 -password pass:$keystorePassword
+  else
+    echo "No intermediate cert file found, skipping."
+    openssl pkcs12 -export -in $TOMCAT_CERT_PATH -inkey $TOMCAT_KEY_PATH -name $keystoreSSLKey -out $HOME/tomcat.pkcs12 -password pass:$keystorePassword
+  fi
+  
   keytool -v -importkeystore -deststorepass $keystorePassword -destkeystore $keystoreLocation -deststoretype PKCS12 -srckeystore $HOME/tomcat.pkcs12 -srcstorepass $keystorePassword -srcstoretype PKCS12 -noprompt
 else
   echo "WARNING: Tomcat cert and/or key not found at '$TOMCAT_CERT_PATH' and/or '$TOMCAT_KEY_PATH'. Keystore: '$keystoreLocation' will not be created."
