@@ -11,6 +11,7 @@ ENV artifact_version=0.0.1-SNAPSHOT
 ENV USER=spring
 ENV HOME=/home/$USER
 ENV SPRING_CLOUD_CONFIG_ENABLED=false
+ENV TOMCAT_CHAIN_PATH=$HOME/tomcat-wildcard-ssl.chain
 ENV TOMCAT_CERT_PATH=$HOME/tomcat-wildcard-ssl.crt
 ENV TOMCAT_KEY_PATH=$HOME/tomcat-wildcard-ssl.key
 ENV JAVA_TRUSTSTORE=$HOME/cacerts
