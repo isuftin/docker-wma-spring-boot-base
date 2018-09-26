@@ -30,7 +30,7 @@
       build:
         context: .
         args:
-          OPENJDK_TAG: '8-jre-slim'
+          OPENJDK_TAG: '8u181-jre-slim'
       image: wma-spring-boot-base:8-jre-slim-latest
       << : *default-config
 
@@ -38,7 +38,7 @@
       build:
         context: .
         args:
-          OPENJDK_TAG: '10-jre-slim'
+          OPENJDK_TAG: '10.0.2-13-jre-slim'
           DEFAULT_JAVA_OPTIONS: "-Xmx300M -server -Djava.security.egd=file:/dev/./urandom"
       image: wma-spring-boot-base:10-jre-slim-latest
       << : *default-config
@@ -47,6 +47,6 @@
       build:
         context: .
         args:
-          OPENJDK_TAG: '8-jre-slim'
+          OPENJDK_TAG: '8u181-jre-slim'
       image: wma-spring-boot-base:latest
       << : *default-config
