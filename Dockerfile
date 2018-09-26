@@ -1,4 +1,4 @@
-ARG OPENJDK_TAG=8-jre-slim
+ARG OPENJDK_TAG=8u181-jre-slim
 
 FROM openjdk:${OPENJDK_TAG}
 
