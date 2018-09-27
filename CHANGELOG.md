@@ -3,6 +3,8 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [UNRELEASED]
+
 ## [0.0.2] - 2018-09-27
 ### Added
 - isuftin@usgs.gov - Added wait-for.sh (and the netcat package) to help with
