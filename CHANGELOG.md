@@ -4,9 +4,33 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [UNRELEASED]
+
+## [0.0.2] - 2018-09-27
 ### Added
 - isuftin@usgs.gov - Added wait-for.sh (and the netcat package) to help with
 downstream container start orchestration
+- Travis waits for container to start before attempting to test
+- Parameterize the base openjdk base image via ARG in Dockerfile
+- Maintainer label in Dockerfile
+- Provide default java options as an ARG in Dockerfile
+- ONBUILD triggers for derivative images
+- Certificate creation scripting
+- Default certificates for testing/development
+- pull-from-artifactory.sh - Added "artifact_type" param
+- pull-from-artifactory.sh - Artifact download verification
+
+### Updated
+- DOCKER_COMPOSE_VERSION for travis YAML
+- Travis docker-compose build and launch step
+- Switched from alpine base image to Debian slim
+- Docker Compose config using YAML expansion fields to re-use code fragments
+- Split Compose configuration into Java 8 and Java 10 image builds
+- entrypoint.sh better handling of certificate importing
+
+### Removed
+- health-check.sh
+- docker-compose.env
+
 
 ## [0.0.1] - 2018-07-12
 ### Added
