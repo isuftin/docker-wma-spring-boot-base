@@ -29,16 +29,15 @@
     8-jre-slim:
       build:
         context: .
-        args:
-          OPENJDK_TAG: '8u181-jre-slim'
+        dockerfile: ./8/Dockerfile
       image: wma-spring-boot-base:8-jre-slim-latest
       << : *default-config
 
     10-jre-slim:
       build:
         context: .
+        dockerfile: ./10/Dockerfile
         args:
-          OPENJDK_TAG: '10.0.2-13-jre-slim'
           DEFAULT_JAVA_OPTIONS: "-Xmx300M -server -Djava.security.egd=file:/dev/./urandom"
       image: wma-spring-boot-base:10-jre-slim-latest
       << : *default-config
@@ -46,7 +45,6 @@
     latest:
       build:
         context: .
-        args:
-          OPENJDK_TAG: '8u181-jre-slim'
+        dockerfile: ./8/Dockerfile
       image: wma-spring-boot-base:latest
       << : *default-config
