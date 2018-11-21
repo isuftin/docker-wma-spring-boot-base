@@ -14,11 +14,11 @@ fi
 resource_endpoint="${repo_url}/${uri_formatted_group}/${artifact}/${version}/${artifact}-${version}.${artifact_type}"
 
 echo "$(date) | Start fetch $resource_endpoint"
-curl -v --no-tcp-nodelay -o $output -X GET "${resource_endpoint}"
+curl -v --no-tcp-nodelay -o $output "${resource_endpoint}"
 echo "$(date) | End fetch $resource_endpoint"
 echo "Artifact: ${group}.${artifact}\nVersion: ${version}\nRetireved At: $(date)" >> artifact-metadata.txt
 echo "$(date) | Start fetch checksum"
-curl --no-tcp-nodelay -o $output.md5 -X GET "${resource_endpoint}.md5"
+curl --no-tcp-nodelay -o $output.md5 "${resource_endpoint}.md5"
 echo "$(date) | End fetch checksum"
 artifact_md5=$(md5sum $output | awk '{ print $1 }')
 remote_md5=$(cat $output.md5)

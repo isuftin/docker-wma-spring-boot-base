@@ -9,7 +9,7 @@ mkdir ./root
 mkdir ./intermediate1
 cp openssl-root.conf ./root/openssl.conf
 cp openssl-intermediate.conf ./intermediate1/openssl.conf
-cd root
+cd root || exit # SC2164
 PWD=$(pwd)
 
 touch certindex
@@ -42,7 +42,7 @@ cp root/intermediate1.crt intermediate1/
 cp root/rootca.crt intermediate1/
 cp root/rootca.key intermediate1/
 
-cd intermediate1
+cd intermediate1 || exit # SC2164
 mkdir ./end_user_certs
 
 PWD=$(pwd)
