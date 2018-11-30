@@ -1,6 +1,6 @@
 FROM openjdk:8-jre-slim
 
-ARG DEFAULT_JAVA_OPTIONS="-Xmx300M -server -Djava.security.egd=file:/dev/./urandom -Djavax.net.ssl.trustStore=\${JAVA_TRUSTSTORE} -Djavax.net.ssl.trustStorePassword=\${JAVA_TRUSTSTORE_PASS}"
+ARG DEFAULT_JAVA_OPTIONS="-Xmx300M -server"
 
 LABEL maintainer="gs-w_eto_eb_federal_employees@usgs.gov"
 
@@ -36,6 +36,7 @@ WORKDIR $HOME
 COPY --chown=1000:1000 pull-from-artifactory.sh pull-from-artifactory.sh
 COPY --chown=1000:1000 entrypoint.sh entrypoint.sh
 COPY --chown=1000:1000 launch-app.sh $LAUNCH_APP_SCRIPT
+COPY --chown=1000:1000 java.security.properties java.security.properties
 RUN chmod +x pull-from-artifactory.sh entrypoint.sh $LAUNCH_APP_SCRIPT
 USER $USER
 
