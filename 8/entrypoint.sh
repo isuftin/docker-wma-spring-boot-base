@@ -54,7 +54,7 @@ fi
 # since the environment variables they reference aren't defined until further down in
 # the Dockerfile. Thus we need to evalute those escaped environment references now.
 if [ -z "$JAVA_OPTIONS" ]; then
-    JAVA_OPTIONS="-server -Djava.security.egd=file:/dev/./urandom"
+    JAVA_OPTIONS="-server"
 else
     echo "Evaluating Java run options: $JAVA_OPTIONS"
     JAVA_OPTIONS=$(eval echo $JAVA_OPTIONS)

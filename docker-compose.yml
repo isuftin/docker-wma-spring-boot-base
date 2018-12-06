@@ -35,8 +35,6 @@
     10-jre-slim:
       build:
         context: ./10
-        args:
-          DEFAULT_JAVA_OPTIONS: "-Xmx300M -server -Djava.security.egd=file:/dev/./urandom"
       image: wma-spring-boot-base:10-jre-slim-latest
       << : *default-config
 
