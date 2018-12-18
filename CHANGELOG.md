@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [UNRELEASED]
+### Added
+- isuftin@usgs.gov - Moved sample app source code into this project from https://github.com/USGS-CIDA/wma-spring-boot-sample
+
+### Updated
+- isuftin@usgs.gov - Copied shell scripts to root dir
+- isuftin@usgs.gov - Compose file now specifies the dockerfile to use but keeps context at root
 
 ## [0.0.2] - 2018-09-27
 ### Added

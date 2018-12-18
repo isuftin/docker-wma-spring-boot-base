@@ -28,20 +28,22 @@
   services:
     8-jre-slim:
       build:
-        context: ./8
-      image: wma-spring-boot-base:8-jre-slim-latest
+        context: .
+        dockerfile: ./8/Dockerfile
+      image: wma-spring-boot-base:8-jre-slim
       << : *default-config
 
     10-jre-slim:
       build:
-        context: ./10
+        context: .
+        dockerfile: ./10/Dockerfile
         args:
           DEFAULT_JAVA_OPTIONS: "-Xmx300M -server -Djava.security.egd=file:/dev/./urandom"
-      image: wma-spring-boot-base:10-jre-slim-latest
+      image: wma-spring-boot-base:10-jre-slim
       << : *default-config
 
     latest:
       build:
-        context: ./8
+        context: .
       image: wma-spring-boot-base:latest
       << : *default-config

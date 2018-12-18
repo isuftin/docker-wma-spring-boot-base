@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: default
+
+security:
+  require-ssl: true
+
+server:
+    port: ${serverPort:8443}
+    ssl:
+        key-store: ${keystoreLocation}
+        key-store-password: ${keystorePassword}
+        key-password: ${keystorePassword}
+        key-alias: ${keystoreSSLKey:tomcat}
+
