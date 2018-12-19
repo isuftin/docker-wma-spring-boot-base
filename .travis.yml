@@ -4,6 +4,7 @@ env:
   matrix:
     - service=8-jre-slim
     - service=10-jre-slim
+    - service=11-jre-slim
   global:
     - DOCKER_COMPOSE_VERSION=1.22.0
     - DOCKER_IMAGE=wma-spring-boot-base
@@ -29,7 +30,7 @@ install:
 script:
   - |
     count=1
-    limit=60
+    limit=120
     until docker ps --filter "name=$DOCKER_IMAGE" --filter "health=healthy" --format "{{.Names}}" | grep "$DOCKER_IMAGE"
     do
       echo "Testing container health $count of $limit"
