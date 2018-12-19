@@ -68,11 +68,11 @@
             </plugin>
         </plugins>
     </build>
-    
+
     <scm>
-        <connection>scm:git:https://github.com/USGS-CIDA/wma-spring-boot-sample.git</connection>
-        <developerConnection>scm:git:https://${env.GITHUB_USER}:${env.GITHUB_PASS}@github.com/USGS-CIDA/wma-spring-boot-sample.git</developerConnection>
-        <url>https://github.com/USGS-CIDA/wma-spring-boot-sample</url>
+        <connection>scm:git:https://github.com/USGS-CIDA/docker-wma-spring-boot-base.git</connection>
+        <developerConnection>scm:git:https://${env.GITHUB_USER}:${env.GITHUB_PASS}@github.com/USGS-CIDA/docker-wma-spring-boot-base.git</developerConnection>
+        <url>https://github.com/USGS-CIDA/docker-wma-spring-boot-base</url>
         <tag>HEAD</tag>
     </scm>
 </project>
