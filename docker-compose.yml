@@ -37,13 +37,19 @@
       build:
         context: .
         dockerfile: ./10/Dockerfile
-        args:
-          DEFAULT_JAVA_OPTIONS: "-Xmx300M -server -Djava.security.egd=file:/dev/./urandom"
       image: wma-spring-boot-base:10-jre-slim
+      << : *default-config
+
+    11-jre-slim:
+      build:
+        context: .
+        dockerfile: ./11/Dockerfile
+      image: wma-spring-boot-base:11-jre-slim
       << : *default-config
 
     latest:
       build:
         context: .
+        dockerfile: ./8/Dockerfile
       image: wma-spring-boot-base:latest
       << : *default-config
