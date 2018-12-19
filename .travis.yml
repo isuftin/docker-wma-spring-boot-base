@@ -25,6 +25,7 @@ before_install:
   - git clone https://github.com/docker/docker-bench-security.git
 
 install:
+  - chmod +x certificates/create_certificates.sh && certificates/create_certificates.sh
   - docker-compose up --detach --build $service
 
 script:
