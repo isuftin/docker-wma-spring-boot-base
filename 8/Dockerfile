@@ -64,6 +64,6 @@ CMD [ "./entrypoint.sh"]
 HEALTHCHECK --interval=30s --timeout=3s \
   CMD curl -k "https://127.0.0.1:${serverPort}${serverContextPath}${HEALTH_CHECK_ENDPOINT}" | grep -q ${HEALTHY_RESPONSE_CONTAINS} || exit 1
 
-ONBUILD RUN echo "Removing sample app.jar..." && rm app.jar && rm artifact-metadata.txt
+ONBUILD RUN echo "Removing sample app.jar..." && rm app.jar
 # Spring Boot 2.x moved the health check endpoint to actuator/health. We should keep the default at /health until most of our downstream services update.
 ONBUILD ENV HEALTH_CHECK_ENDPOINT=health
