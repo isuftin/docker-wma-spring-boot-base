@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - isuftin@usgs.gov - Update developer connection in pom
 - isuftin@usgs.gov - Update launch-app for readability and simplification of code
 
+### Removed
+- isuftin@usgs.gov - Removed the onbuild trigger to remove artifact-metadata.txt
+
 ## [0.0.2] - 2018-09-27
 ### Added
 - isuftin@usgs.gov - Added wait-for.sh (and the netcat package) to help with
