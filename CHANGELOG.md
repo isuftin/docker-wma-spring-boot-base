@@ -3,6 +3,10 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Added
+- isuftin@usgs.gov - Replaced the pull-from-artifactory shell script
+
 ## [0.0.3] - 2018-12-20
 ### Added
 - isuftin@usgs.gov - Moved sample app source code into this project from https://github.com/USGS-CIDA/wma-spring-boot-sample
