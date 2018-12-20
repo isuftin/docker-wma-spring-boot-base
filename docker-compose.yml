@@ -28,18 +28,28 @@
   services:
     8-jre-slim:
       build:
-        context: ./8
-      image: wma-spring-boot-base:8-jre-slim-latest
+        context: .
+        dockerfile: ./8/Dockerfile
+      image: wma-spring-boot-base:8-jre-slim
       << : *default-config
 
     10-jre-slim:
       build:
-        context: ./10
-      image: wma-spring-boot-base:10-jre-slim-latest
+        context: .
+        dockerfile: ./10/Dockerfile
+      image: wma-spring-boot-base:10-jre-slim
+      << : *default-config
+
+    11-jre-slim:
+      build:
+        context: .
+        dockerfile: ./11/Dockerfile
+      image: wma-spring-boot-base:11-jre-slim
       << : *default-config
 
     latest:
       build:
-        context: ./8
+        context: .
+        dockerfile: ./8/Dockerfile
       image: wma-spring-boot-base:latest
       << : *default-config

@@ -4,6 +4,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [UNRELEASED]
+### Added
+- isuftin@usgs.gov - Moved sample app source code into this project from https://github.com/USGS-CIDA/wma-spring-boot-sample
+- isuftin@usgs.gov - Add key-store-type to application.yml
+- isuftin@usgs.gov - Include a Java 11 build
+
+### Updated
+- isuftin@usgs.gov - Copied shell scripts to root dir
+- isuftin@usgs.gov - Compose file now specifies the dockerfile to use but keeps context at root
+- isuftin@usgs.gov - Make the certificate creation script more versatile
+- isuftin@usgs.gov - Add certificates to gitignore
+- isuftin@usgs.gov - Update to SHA256 encryption in cert generation
+- isuftin@usgs.gov - Update developer connection in pom
+- isuftin@usgs.gov - Update launch-app for readability and simplification of code
 
 ## [0.0.2] - 2018-09-27
 ### Added

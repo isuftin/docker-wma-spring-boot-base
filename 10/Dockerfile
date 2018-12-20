@@ -1,3 +1,15 @@
+FROM maven:3-jdk-10-slim AS build
+
+WORKDIR /build
+
+COPY pom.xml pom.xml
+
+COPY src /build/src
+
+COPY .git .git
+
+RUN mvn clean package
+
 FROM openjdk:10-jre-slim
 
 ARG DEFAULT_JAVA_OPTIONS="-Xmx300M -server"
@@ -33,14 +45,12 @@ RUN apt-get update && \
 RUN adduser --disabled-password --gecos "" -u 1000 $USER
 
 WORKDIR $HOME
-COPY --chown=1000:1000 pull-from-artifactory.sh pull-from-artifactory.sh
 COPY --chown=1000:1000 entrypoint.sh entrypoint.sh
 COPY --chown=1000:1000 launch-app.sh $LAUNCH_APP_SCRIPT
+COPY --chown=1000:1000 --from=build /build/target/spring-boot-sample*.jar app.jar
 COPY --chown=1000:1000 java.security.properties java.security.properties
-RUN chmod +x pull-from-artifactory.sh entrypoint.sh $LAUNCH_APP_SCRIPT
+RUN chmod +x entrypoint.sh $LAUNCH_APP_SCRIPT
 USER $USER
-
-RUN ./pull-from-artifactory.sh wma-maven-centralized gov.usgs.wma spring-boot-sample $artifact_version app.jar
 
 # This is used for downstream containers that may need this scripting in order to
 # orchestrate container startups.

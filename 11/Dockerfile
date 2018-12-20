@@ -1,4 +1,4 @@
-FROM maven:3.6.0-jdk-8-alpine AS build
+FROM maven:3-jdk-11-slim AS build
 
 WORKDIR /build
 
@@ -10,7 +10,7 @@ COPY .git .git
 
 RUN mvn clean package
 
-FROM openjdk:8-jre-slim
+FROM openjdk:11-jre-slim
 
 ARG DEFAULT_JAVA_OPTIONS="-Xmx300M -server"
 
