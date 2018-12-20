@@ -47,9 +47,10 @@ RUN adduser --disabled-password --gecos "" -u 1000 $USER
 WORKDIR $HOME
 COPY --chown=1000:1000 entrypoint.sh entrypoint.sh
 COPY --chown=1000:1000 launch-app.sh $LAUNCH_APP_SCRIPT
-COPY --chown=1000:1000 --from=build /build/target/spring-boot-sample*.jar app.jar
 COPY --chown=1000:1000 java.security.properties java.security.properties
-RUN chmod +x entrypoint.sh $LAUNCH_APP_SCRIPT
+COPY --chown=1000:1000 pull-from-artifactory.sh pull-from-artifactory.sh
+COPY --chown=1000:1000 --from=build /build/target/spring-boot-sample*.jar app.jar
+RUN chmod +x pull-from-artifactory.sh entrypoint.sh $LAUNCH_APP_SCRIPT
 
 USER $USER
 
