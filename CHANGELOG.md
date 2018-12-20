@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [UNRELEASED]
+## [0.0.2] - 2018-12-20
 ### Added
 - isuftin@usgs.gov - Moved sample app source code into this project from https://github.com/USGS-CIDA/wma-spring-boot-sample
 - isuftin@usgs.gov - Add key-store-type to application.yml
