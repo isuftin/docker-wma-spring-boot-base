@@ -6,7 +6,6 @@ security:
   require-ssl: true
 
 server:
-    port: ${serverPort:8443}
     ssl:
         key-store: ${keystoreLocation}
         key-store-password: ${keystorePassword}

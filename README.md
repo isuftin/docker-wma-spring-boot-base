@@ -8,7 +8,7 @@ This Docker Image provides basic functionality common to all WMA Spring Boot Ser
 ### Environment Variables
 This docker image provides several environment variables to child images:
  - **requireSsl** [deafult: true]: Whether or not the service should disallow connections over plain HTTP.
- - **serverPort** [default: 443]: The port that the application should run on within the container.
+ - **SERVER_PORT** [default: 443]: The port that the application should run on within the container.
  - **serverContextPath** [default: /]: The root context that the application should run on within the container. IMPORTANT NOTE: Your context path **MUST** contain a trailing slash for the health check to work properly.
  - **maxHeapSpace** [deafult: 300M]: The maximum amount of heap space to provide a running JAR file specified in the format of a -Xmx argument to Java. The default values was chosen as a value that seemed to work sufficiently well for all tested services, but this should be modified on a service-by-service basis to get the ebst results.
  - **springFrameworkLogLevel** [deafult: info]: The logging level of the application running within the container.
@@ -26,7 +26,7 @@ This docker image provides several environment variables to child images:
  - **HEALTH_CHECK_ENDPOINT** [default: "health"]: The URL that Docker should hit to reach the application health check.
 
 ### Health Check
-This docker image provides a default health check script which is executed by the Dockerfile HEALTHCHECK command. A script is provided rather than a hard-coded command because when a command with ENV injections is put into the Dockerfile the ENVs are injected at build-time, and as a result if those values are overridden at runtime or by a child Dockerfile the command is *NOT* updated. Using a script the command is evaluated at run-time each time the script is called so the ENV injections are properly evaluated. This script is executed using the "HELATH_***" environment variables supplied above. The default health check script works by pinging the url `https://127.0.0.1:${serverPort}${serverContextPath}${HEALTH_CHECK_ENDPOINT}` and parsing the response, checking for the existence of `HEALTHY_RESPONSE_CONTAINS` within the returned response.
+This docker image provides a default health check script which is executed by the Dockerfile HEALTHCHECK command. A script is provided rather than a hard-coded command because when a command with ENV injections is put into the Dockerfile the ENVs are injected at build-time, and as a result if those values are overridden at runtime or by a child Dockerfile the command is *NOT* updated. Using a script the command is evaluated at run-time each time the script is called so the ENV injections are properly evaluated. This script is executed using the "HELATH_***" environment variables supplied above. The default health check script works by pinging the url `https://127.0.0.1:${SERVER_PORT}${serverContextPath}${HEALTH_CHECK_ENDPOINT}` and parsing the response, checking for the existence of `HEALTHY_RESPONSE_CONTAINS` within the returned response.
 
 This default health check can be overridden by providing a `HEALTHCHECK` line at the bottom of the child dockerfile.
 
