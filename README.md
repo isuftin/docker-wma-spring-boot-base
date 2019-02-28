@@ -13,8 +13,8 @@ This docker image provides several environment variables to child images:
  - **maxHeapSpace** [deafult: 300M]: The maximum amount of heap space to provide a running JAR file specified in the format of a -Xmx argument to Java. The default values was chosen as a value that seemed to work sufficiently well for all tested services, but this should be modified on a service-by-service basis to get the ebst results.
  - **springFrameworkLogLevel** [deafult: info]: The logging level of the application running within the container.
  - **SERVER_SSL_KEYSTORE** [default: /localkeystore.p12]: The fully-qualified file path that the keystore should be created at.
- - **keystoreSSLKey** [default: tomcat]: The key alias to use for the SSl certicate that should be served by the application.
  - **SERVER_SSL_KEYSTOREPASSWORD** [default: changeme]: The password to use for the keystore.
+ - **SERVER_SSL_KEYALIAS** [default: tomcat]: The key alias to use for the SSl certicate that should be served by the application.
  - **ribbonMaxAutoRetries** [default: 3]: The number of times that connections to other services via ribboning should retry before failing.
  - **ribbonConnectTimeout** [default: 1000]: The amount of time to wait before timing out a ribbon connection attempt (in MS).
  - **ribbonReadTimeout** [default: 10000]: The amount of time to wait before timing out while waiting on a response from an established ribbon connection (in MS).

@@ -4,6 +4,5 @@ spring:
 
 server:
     ssl:
-        key-alias: ${keystoreSSLKey:tomcat}
         key-password: ${SERVER_SSL_KEYSTOREPASSWORD}
         key-store-type: PKCS12

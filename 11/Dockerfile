@@ -34,8 +34,8 @@ ENV SECURITY_REQUIRESSL=true
 ENV SERVER_PORT=8443
 ENV serverContextPath=/
 ENV SERVER_SSL_KEYSTORE=$HOME/localkeystore.pkcs12
-ENV keystoreSSLKey=tomcat
 ENV SERVER_SSL_KEYSTOREPASSWORD=changeme
+ENV SERVER_SSL_KEYALIAS=tomcat
 ENV LAUNCH_APP_SCRIPT=$HOME/launch-app.sh
 
 RUN apt-get update && \

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 keystoreLocation=${SERVER_SSL_KEYSTORE:?}
-keystoreSSLKey=${keystoreSSLKey:?}
+keystoreSSLKey=${SERVER_SSL_KEYALIAS:?}
 keystorePassword=${SERVER_SSL_KEYSTOREPASSWORD:?}
 
 # Because I am the root user, I cannot write to the system java keystore.
