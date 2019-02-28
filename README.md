@@ -12,7 +12,7 @@ This docker image provides several environment variables to child images:
  - **serverContextPath** [default: /]: The root context that the application should run on within the container. IMPORTANT NOTE: Your context path **MUST** contain a trailing slash for the health check to work properly.
  - **maxHeapSpace** [deafult: 300M]: The maximum amount of heap space to provide a running JAR file specified in the format of a -Xmx argument to Java. The default values was chosen as a value that seemed to work sufficiently well for all tested services, but this should be modified on a service-by-service basis to get the ebst results.
  - **springFrameworkLogLevel** [deafult: info]: The logging level of the application running within the container.
- - **keystoreLocation** [default: /localkeystore.p12]: The fully-qualified file path that the keystore should be created at.
+ - **SERVER_SSL_KEYSTORE** [default: /localkeystore.p12]: The fully-qualified file path that the keystore should be created at.
  - **keystorePassword** [default: changeme]: The password to use for the keystore.
  - **keystoreSSLKey** [default: tomcat]: The key alias to use for the SSl certicate that should be served by the application.
  - **ribbonMaxAutoRetries** [default: 3]: The number of times that connections to other services via ribboning should retry before failing.

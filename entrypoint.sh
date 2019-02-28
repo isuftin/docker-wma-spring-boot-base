@@ -1,6 +1,6 @@
 #!/bin/bash
 
-keystoreLocation=${keystoreLocation:?}
+keystoreLocation=${SERVER_SSL_KEYSTORE:?}
 keystoreSSLKey=${keystoreSSLKey:?}
 keystorePassword=${keystorePassword:?}
 
