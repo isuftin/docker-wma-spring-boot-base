@@ -2,7 +2,7 @@
 
 keystoreLocation=${SERVER_SSL_KEYSTORE:?}
 keystoreSSLKey=${keystoreSSLKey:?}
-keystorePassword=${keystorePassword:?}
+keystorePassword=${SERVER_SSL_KEYSTOREPASSWORD:?}
 
 # Because I am the root user, I cannot write to the system java keystore.
 # Therefore I copy the Java keystore to a local area. The source location

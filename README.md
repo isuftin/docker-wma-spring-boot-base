@@ -13,8 +13,8 @@ This docker image provides several environment variables to child images:
  - **maxHeapSpace** [deafult: 300M]: The maximum amount of heap space to provide a running JAR file specified in the format of a -Xmx argument to Java. The default values was chosen as a value that seemed to work sufficiently well for all tested services, but this should be modified on a service-by-service basis to get the ebst results.
  - **springFrameworkLogLevel** [deafult: info]: The logging level of the application running within the container.
  - **SERVER_SSL_KEYSTORE** [default: /localkeystore.p12]: The fully-qualified file path that the keystore should be created at.
- - **keystorePassword** [default: changeme]: The password to use for the keystore.
  - **keystoreSSLKey** [default: tomcat]: The key alias to use for the SSl certicate that should be served by the application.
+ - **SERVER_SSL_KEYSTOREPASSWORD** [default: changeme]: The password to use for the keystore.
  - **ribbonMaxAutoRetries** [default: 3]: The number of times that connections to other services via ribboning should retry before failing.
  - **ribbonConnectTimeout** [default: 1000]: The amount of time to wait before timing out a ribbon connection attempt (in MS).
  - **ribbonReadTimeout** [default: 10000]: The amount of time to wait before timing out while waiting on a response from an established ribbon connection (in MS).
@@ -54,9 +54,16 @@ The entrypoint script added by this docker image expects your application to be 
 
 1. **/launch-app.sh**: If you add a shell script into the docker container at the path `/launch-app.sh` the entrypoint script will execute that script after setting up the keystore. Within this script your can complete any additional configuration that you may need and launch your JAR file or other artifact.
 
-2. **/app.jar**: If you do not provide a `/launch-app.sh` script then the entrypoint will attempt to directly launch an application JAR file that has been placed at `/app.jar` within the docker container. This jar file is executed using the following command: 
-    ```
-    java -Djava.security.egd=file:/dev/./urandom -jar -DkeystorePassword=$keystorePassword app.jar $@
+2. **/app.jar**: If you do not provide a `/launch-app.sh` script then the entrypoint will attempt to directly launch an application JAR file that has been placed at `/app.jar` within the docker container. This jar file is executed using the following command:
+
+    ```bash
+    java $JAVA_OPTIONS \
+      -Djava.security.egd=file:/dev/./urandom \
+      -Djava.security.properties="${HOME}/java.security.properties" \
+      -Djavax.net.ssl.trustStore="${JAVA_TRUSTSTORE}" \
+      -Djavax.net.ssl.trustStorePassword="${JAVA_TRUSTSTORE_PASS}" \
+      -jar "${ARTIFACT}" \
+      "$@"
     ```
 
 Note that these files will need to be added into your docker container via your child image Dockerfile using something akin to `ADD app.jar /app.jar`, or via another method (such as a CURL in the Dockerfile). Using the base docker image does _not_ automatically add this file into your image for you.
