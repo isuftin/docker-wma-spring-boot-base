@@ -7,7 +7,7 @@ This Docker Image provides basic functionality common to all WMA Spring Boot Ser
 ## Usage
 ### Environment Variables
 This docker image provides several environment variables to child images:
- - **requireSsl** [deafult: true]: Whether or not the service should disallow connections over plain HTTP.
+ - **SECURITY_REQUIRESSL** [default: true]: Whether or not the service should disallow connections over plain HTTP.
  - **SERVER_PORT** [default: 443]: The port that the application should run on within the container.
  - **serverContextPath** [default: /]: The root context that the application should run on within the container. IMPORTANT NOTE: Your context path **MUST** contain a trailing slash for the health check to work properly.
  - **maxHeapSpace** [deafult: 300M]: The maximum amount of heap space to provide a running JAR file specified in the format of a -Xmx argument to Java. The default values was chosen as a value that seemed to work sufficiently well for all tested services, but this should be modified on a service-by-service basis to get the ebst results.

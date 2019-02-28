@@ -2,9 +2,6 @@ spring:
   profiles:
     active: default
 
-security:
-  require-ssl: true
-
 server:
     ssl:
         key-store: ${keystoreLocation}
