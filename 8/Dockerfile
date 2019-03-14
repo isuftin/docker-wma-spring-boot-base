@@ -2,13 +2,17 @@ FROM maven:3.6.0-jdk-8-alpine AS build
 
 WORKDIR /build
 
+#copy pom if it has changed
 COPY pom.xml pom.xml
+
+#download all maven dependencies (this will only re-run if the pom has changed)
+RUN mvn -B dependency:go-offline
 
 COPY src /build/src
 
 COPY .git .git
 
-RUN mvn clean package
+RUN mvn -B clean package
 
 FROM openjdk:8-jre-slim
 

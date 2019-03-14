@@ -2,7 +2,11 @@ FROM maven:3-jdk-10-slim AS build
 
 WORKDIR /build
 
+#copy pom if it has changed
 COPY pom.xml pom.xml
+
+#download all maven dependencies (this will only re-run if the pom has changed)
+RUN mvn -B dependency:go-offline
 
 COPY src /build/src
 
