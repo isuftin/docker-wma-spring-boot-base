@@ -4,6 +4,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.0.4] - 2019-03-18
+
 ### Added
 - cschroedl@usgs.gov - Enabled maven dependency caching
 - isuftin@usgs.gov - Replaced the pull-from-artifactory shell script
@@ -80,3 +83,9 @@ downstream container start orchestration
 ### Fixed
 - isutftin@usgs.gov - Shell script linting
 - isuftin@usgs.gov - entrypoint script properly copying and appending keystore
+
+[Unreleased]: https://github.com/USGS-CIDA/docker-wma-spring-boot-base/compare/0.0.4...master
+[0.0.4]: https://github.com/USGS-CIDA/docker-wma-spring-boot-base/compare/0.0.3...0.0.4
+[0.0.3]: https://github.com/USGS-CIDA/docker-wma-spring-boot-base/compare/0.0.2...0.0.3
+[0.0.2]: https://github.com/USGS-CIDA/docker-wma-spring-boot-base/compare/0.0.1...0.0.2
+[0.0.1]: https://github.com/USGS-CIDA/docker-wma-spring-boot-base/tree/0.0.1
