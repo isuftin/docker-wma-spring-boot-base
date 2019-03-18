@@ -5,6 +5,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- cschroedl@usgs.gov - Enabled maven dependency caching
 - isuftin@usgs.gov - Replaced the pull-from-artifactory shell script
 
 ## [0.0.3] - 2018-12-20
