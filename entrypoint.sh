@@ -3,7 +3,6 @@
 keystoreLocation=${SERVER_SSL_KEYSTORE:?}
 keystoreSSLKey=${SERVER_SSL_KEYALIAS:?}
 keystorePassword=${SERVER_SSL_KEYSTOREPASSWORD:?}
-keyPassword=${SERVER_SSL_KEYPASSWORD:?}
 
 # Because I am the root user, I cannot write to the system java keystore.
 # Therefore I copy the Java keystore to a local area. The source location
@@ -26,7 +25,7 @@ if [ -n "${TOMCAT_CERT_PATH}" ] && [ -n "${TOMCAT_KEY_PATH}" ] && [ -f "${TOMCAT
   fi
 
   # Import the PEM
-  openssl pkcs12 -export -in "$HOME/tomcat.pem" -inkey "$TOMCAT_KEY_PATH" -name "$keystoreSSLKey" -out "$HOME/tomcat.pkcs12" -password "pass:$keyPassword"
+  openssl pkcs12 -export -in "$HOME/tomcat.pem" -inkey "$TOMCAT_KEY_PATH" -name "$keystoreSSLKey" -out "$HOME/tomcat.pkcs12" -password "pass:${keystorePassword}"
   keytool -v -importkeystore -deststorepass "$keystorePassword" -destkeystore "$keystoreLocation" -deststoretype PKCS12 -srckeystore "$HOME/tomcat.pkcs12" -srcstorepass "$keystorePassword" -srcstoretype PKCS12 -noprompt
 else
   echo "WARNING: Tomcat cert and/or key not found at '$TOMCAT_CERT_PATH' and/or '$TOMCAT_KEY_PATH'. Keystore: '$keystoreLocation' will not be created."
