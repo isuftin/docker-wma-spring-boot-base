@@ -42,6 +42,9 @@ When launching your docker container you can specify files and directories to mo
 ### Extending the Base Image
 This docker image is not intended to be run on its own, rather other images should inherit from this image in order to utilize its functionality. 
 
+### Pulling down your application
+The recommended way to manage the version of the executable artifact running within the container is to define the version to be run as a build argument. This allows you to link a specific version of the Dockerfile with a specific version of the executable. The Dockerfiles for this image define an example build argument, `artifact_Version` to be used for this purpose. When building a downstream image you can override the value of this ARG with the proper version for your application and then pull it from Artifatory with the included `pull-from-artifactory.sh` script, or pull it from another source.
+
 #### The Entrypoint Script
 This docker image includes an entrypoint script that configures the keystore properly in order for your application to serve SSL certificates. Additionally, this entrypoint allows for your application to be launched via an additional script (detailed in the next section) if you need to run it with specific arguments or additional configuration. This entrypoint script is added to the docker image as `/entrypoint.sh`. 
 

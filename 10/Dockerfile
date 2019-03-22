@@ -20,7 +20,7 @@ ARG DEFAULT_JAVA_OPTIONS="-Xmx300M -server"
 
 LABEL maintainer="gs-w_eto_eb_federal_employees@usgs.gov"
 
-ENV artifact_version=0.0.1-SNAPSHOT
+ARG artifact_version="set_the_artifact_version_arg_in_your_dockerfile"
 
 ENV USER=spring
 ENV HOME=/home/$USER
