@@ -1,3 +1,8 @@
 **/certificates/intermediate1/
 **/certificates/root/
 **/certificates/tomcat-wildcard.*
+/target/**
+.classpath
+.project
+.vscode/**
+.settings/**
