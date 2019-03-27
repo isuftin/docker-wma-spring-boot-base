@@ -34,12 +34,12 @@ ENV JAVA_OPTIONS=$DEFAULT_JAVA_OPTIONS
 ENV HEALTH_CHECK_ENDPOINT=actuator/health
 ENV HEALTHY_RESPONSE_CONTAINS={"status":"UP"}
 ENV springFrameworkLogLevel=info
-ENV requireSsl=true
-ENV serverPort=8443
+ENV SECURITY_REQUIRESSL=true
+ENV SERVER_PORT=8443
 ENV serverContextPath=/
-ENV keystoreLocation=$HOME/localkeystore.pkcs12
-ENV keystorePassword=changeme
-ENV keystoreSSLKey=tomcat
+ENV SERVER_SSL_KEYSTORE=$HOME/localkeystore.pkcs12
+ENV SERVER_SSL_KEYSTOREPASSWORD=changeme
+ENV SERVER_SSL_KEYALIAS=tomcat
 ENV LAUNCH_APP_SCRIPT=$HOME/launch-app.sh
 
 RUN apt-get update && \
@@ -67,7 +67,7 @@ RUN curl -o ./wait-for.sh https://raw.githubusercontent.com/eficode/wait-for/f71
 CMD [ "./entrypoint.sh"]
 
 HEALTHCHECK --interval=30s --timeout=3s \
-  CMD curl -k "https://127.0.0.1:${serverPort}${serverContextPath}${HEALTH_CHECK_ENDPOINT}" | grep -q ${HEALTHY_RESPONSE_CONTAINS} || exit 1
+  CMD curl -k "https://127.0.0.1:${SERVER_PORT}${serverContextPath}${HEALTH_CHECK_ENDPOINT}" | grep -q ${HEALTHY_RESPONSE_CONTAINS} || exit 1
 
 ONBUILD RUN echo "Removing sample app.jar..." && rm app.jar
 # Spring Boot 2.x moved the health check endpoint to actuator/health. We should keep the default at /health until most of our downstream services update.

@@ -7,14 +7,14 @@ This Docker Image provides basic functionality common to all WMA Spring Boot Ser
 ## Usage
 ### Environment Variables
 This docker image provides several environment variables to child images:
- - **requireSsl** [deafult: true]: Whether or not the service should disallow connections over plain HTTP.
- - **serverPort** [default: 443]: The port that the application should run on within the container.
+ - **SECURITY_REQUIRESSL** [default: true]: Whether or not the service should disallow connections over plain HTTP.
+ - **SERVER_PORT** [default: 443]: The port that the application should run on within the container.
  - **serverContextPath** [default: /]: The root context that the application should run on within the container. IMPORTANT NOTE: Your context path **MUST** contain a trailing slash for the health check to work properly.
  - **maxHeapSpace** [deafult: 300M]: The maximum amount of heap space to provide a running JAR file specified in the format of a -Xmx argument to Java. The default values was chosen as a value that seemed to work sufficiently well for all tested services, but this should be modified on a service-by-service basis to get the ebst results.
  - **springFrameworkLogLevel** [deafult: info]: The logging level of the application running within the container.
- - **keystoreLocation** [default: /localkeystore.p12]: The fully-qualified file path that the keystore should be created at.
- - **keystorePassword** [default: changeme]: The password to use for the keystore.
- - **keystoreSSLKey** [default: tomcat]: The key alias to use for the SSl certicate that should be served by the application.
+ - **SERVER_SSL_KEYSTORE** [default: /localkeystore.p12]: The fully-qualified file path that the keystore should be created at.
+ - **SERVER_SSL_KEYSTOREPASSWORD** [default: changeme]: The password to use for the keystore.
+ - **SERVER_SSL_KEYALIAS** [default: tomcat]: The key alias to use for the SSl certicate that should be served by the application.
  - **ribbonMaxAutoRetries** [default: 3]: The number of times that connections to other services via ribboning should retry before failing.
  - **ribbonConnectTimeout** [default: 1000]: The amount of time to wait before timing out a ribbon connection attempt (in MS).
  - **ribbonReadTimeout** [default: 10000]: The amount of time to wait before timing out while waiting on a response from an established ribbon connection (in MS).
@@ -26,7 +26,7 @@ This docker image provides several environment variables to child images:
  - **HEALTH_CHECK_ENDPOINT** [default: "health"]: The URL that Docker should hit to reach the application health check.
 
 ### Health Check
-This docker image provides a default health check script which is executed by the Dockerfile HEALTHCHECK command. A script is provided rather than a hard-coded command because when a command with ENV injections is put into the Dockerfile the ENVs are injected at build-time, and as a result if those values are overridden at runtime or by a child Dockerfile the command is *NOT* updated. Using a script the command is evaluated at run-time each time the script is called so the ENV injections are properly evaluated. This script is executed using the "HELATH_***" environment variables supplied above. The default health check script works by pinging the url `https://127.0.0.1:${serverPort}${serverContextPath}${HEALTH_CHECK_ENDPOINT}` and parsing the response, checking for the existence of `HEALTHY_RESPONSE_CONTAINS` within the returned response.
+This docker image provides a default health check script which is executed by the Dockerfile HEALTHCHECK command. A script is provided rather than a hard-coded command because when a command with ENV injections is put into the Dockerfile the ENVs are injected at build-time, and as a result if those values are overridden at runtime or by a child Dockerfile the command is *NOT* updated. Using a script the command is evaluated at run-time each time the script is called so the ENV injections are properly evaluated. This script is executed using the "HELATH_***" environment variables supplied above. The default health check script works by pinging the url `https://127.0.0.1:${SERVER_PORT}${serverContextPath}${HEALTH_CHECK_ENDPOINT}` and parsing the response, checking for the existence of `HEALTHY_RESPONSE_CONTAINS` within the returned response.
 
 This default health check can be overridden by providing a `HEALTHCHECK` line at the bottom of the child dockerfile.
 
@@ -57,9 +57,16 @@ The entrypoint script added by this docker image expects your application to be 
 
 1. **/launch-app.sh**: If you add a shell script into the docker container at the path `/launch-app.sh` the entrypoint script will execute that script after setting up the keystore. Within this script your can complete any additional configuration that you may need and launch your JAR file or other artifact.
 
-2. **/app.jar**: If you do not provide a `/launch-app.sh` script then the entrypoint will attempt to directly launch an application JAR file that has been placed at `/app.jar` within the docker container. This jar file is executed using the following command: 
-    ```
-    java -Djava.security.egd=file:/dev/./urandom -jar -DkeystorePassword=$keystorePassword app.jar $@
+2. **/app.jar**: If you do not provide a `/launch-app.sh` script then the entrypoint will attempt to directly launch an application JAR file that has been placed at `/app.jar` within the docker container. This jar file is executed using the following command:
+
+    ```bash
+    java $JAVA_OPTIONS \
+      -Djava.security.egd=file:/dev/./urandom \
+      -Djava.security.properties="${HOME}/java.security.properties" \
+      -Djavax.net.ssl.trustStore="${JAVA_TRUSTSTORE}" \
+      -Djavax.net.ssl.trustStorePassword="${JAVA_TRUSTSTORE_PASS}" \
+      -jar "${ARTIFACT}" \
+      "$@"
     ```
 
 Note that these files will need to be added into your docker container via your child image Dockerfile using something akin to `ADD app.jar /app.jar`, or via another method (such as a CURL in the Dockerfile). Using the base docker image does _not_ automatically add this file into your image for you.
