@@ -5,6 +5,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.0] - 2019-04-03
+
 ## Removed
 
 - cschroedl@usgs.gov - Removed custom environment variable names in favor of existing environment variable names recognized by Spring Boot.
@@ -99,7 +101,8 @@ downstream container start orchestration
 - isutftin@usgs.gov - Shell script linting
 - isuftin@usgs.gov - entrypoint script properly copying and appending keystore
 
-[Unreleased]: https://github.com/USGS-CIDA/docker-wma-spring-boot-base/compare/0.0.4...master
+[Unreleased]: https://github.com/USGS-CIDA/docker-wma-spring-boot-base/compare/1.0.0...master
+[1.0.0]: https://github.com/USGS-CIDA/docker-wma-spring-boot-base/compare/0.0.4...1.0.0
 [0.0.4]: https://github.com/USGS-CIDA/docker-wma-spring-boot-base/compare/0.0.3...0.0.4
 [0.0.3]: https://github.com/USGS-CIDA/docker-wma-spring-boot-base/compare/0.0.2...0.0.3
 [0.0.2]: https://github.com/USGS-CIDA/docker-wma-spring-boot-base/compare/0.0.1...0.0.2
