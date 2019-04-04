@@ -5,6 +5,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.0] - 2019-04-03
+
+## Removed
+
+- cschroedl@usgs.gov - Removed custom environment variable names in favor of existing environment variable names recognized by Spring Boot.
+
+    | Old Custom Variable Name | New Spring Boot Variable Name |
+    |--------------------------|-------------------------------|
+    | requireSsl               | SECURITY_REQUIRESSL           |
+    | serverPort               | SERVER_PORT                   |
+    | keystoreLocation         | SERVER_SSL_KEYSTORE           |
+    | keystorePassword         | SERVER_SSL_KEYSTOREPASSWORD   |
+    | keystoreSSLKey           | SERVER_SSL_KEYALIAS           |
+
+## Changed
+
+- zmoore@usgs.gov - Changed `artifact_version` in all `Dockerfile`s  from an `ENV` to an `ARG` to prevent the parent from overriding the value set by downstream images if they use an `ARG` instead of an `ENV`.
+
 ## [0.0.4] - 2019-03-18
 
 ### Added
@@ -84,7 +102,8 @@ downstream container start orchestration
 - isutftin@usgs.gov - Shell script linting
 - isuftin@usgs.gov - entrypoint script properly copying and appending keystore
 
-[Unreleased]: https://github.com/USGS-CIDA/docker-wma-spring-boot-base/compare/0.0.4...master
+[Unreleased]: https://github.com/USGS-CIDA/docker-wma-spring-boot-base/compare/1.0.0...master
+[1.0.0]: https://github.com/USGS-CIDA/docker-wma-spring-boot-base/compare/0.0.4...1.0.0
 [0.0.4]: https://github.com/USGS-CIDA/docker-wma-spring-boot-base/compare/0.0.3...0.0.4
 [0.0.3]: https://github.com/USGS-CIDA/docker-wma-spring-boot-base/compare/0.0.2...0.0.3
 [0.0.2]: https://github.com/USGS-CIDA/docker-wma-spring-boot-base/compare/0.0.1...0.0.2
