@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- cschroedl@usgs.gov - Enabled containers to run with HTTP (without HTTPS).
+
 ## [1.0.0] - 2019-04-03
 
 ## Removed

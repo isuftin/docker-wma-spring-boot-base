@@ -1,9 +1,5 @@
 #!/bin/bash
 
-keystoreLocation=${SERVER_SSL_KEYSTORE:?}
-keystoreSSLKey=${SERVER_SSL_KEYALIAS:?}
-keystorePassword=${SERVER_SSL_KEYSTOREPASSWORD:?}
-
 # Because I am the root user, I cannot write to the system java keystore.
 # Therefore I copy the Java keystore to a local area. The source location
 # for the Java keystore is /etc/ssl/certs/java/cacerts for this image
@@ -11,6 +7,11 @@ keystorePassword=${SERVER_SSL_KEYSTOREPASSWORD:?}
 keytool -importkeystore -srckeystore "$JAVA_HOME/lib/security/cacerts" -srcstorepass "$JAVA_TRUSTSTORE_PASS" -destkeystore "$JAVA_TRUSTSTORE" -deststorepass "$JAVA_TRUSTSTORE_PASS" -deststoretype jks
 
 if [ -n "${TOMCAT_CERT_PATH}" ] && [ -n "${TOMCAT_KEY_PATH}" ] && [ -f "${TOMCAT_CERT_PATH}" ] && [ -f "${TOMCAT_KEY_PATH}" ]; then
+
+  keystoreLocation=${SERVER_SSL_KEYSTORE:?}
+  keystoreSSLKey=${SERVER_SSL_KEYALIAS:?}
+  keystorePassword=${SERVER_SSL_KEYSTOREPASSWORD:?}
+
   # If the previous keystore location exists, remove it as I will create a new file there
   if [ -f "$keystoreLocation" ]; then
     rm "$keystoreLocation"
@@ -28,7 +29,7 @@ if [ -n "${TOMCAT_CERT_PATH}" ] && [ -n "${TOMCAT_KEY_PATH}" ] && [ -f "${TOMCAT
   openssl pkcs12 -export -in "$HOME/tomcat.pem" -inkey "$TOMCAT_KEY_PATH" -name "$keystoreSSLKey" -out "$HOME/tomcat.pkcs12" -password "pass:${keystorePassword}"
   keytool -v -importkeystore -deststorepass "$keystorePassword" -destkeystore "$keystoreLocation" -deststoretype PKCS12 -srckeystore "$HOME/tomcat.pkcs12" -srcstorepass "$keystorePassword" -srcstoretype PKCS12 -noprompt
 else
-  echo "WARNING: Tomcat cert and/or key not found at '$TOMCAT_CERT_PATH' and/or '$TOMCAT_KEY_PATH'. Keystore: '$keystoreLocation' will not be created."
+  echo "WARNING: Tomcat cert and/or key not found at '$TOMCAT_CERT_PATH' and/or '$TOMCAT_KEY_PATH'. Keystore will not be created."
 fi
 
 if [ -n "${CERT_IMPORT_DIRECTORY}" ] && [ -d "${CERT_IMPORT_DIRECTORY}" ]; then
