@@ -27,7 +27,10 @@ This docker image provides several environment variables to child images:
 
 ## Enabling HTTP
 
-This image encourages using HTTPS by default. If you want to use HTTP, set both `TOMCAT_CERT_PATH` and `TOMCAT_KEY_PATH` to the empty string.
+This image encourages using HTTPS by default. If you want to use HTTP...
+
+1. set the following environment variables to the empty string: `TOMCAT_CERT_PATH`, `TOMCAT_KEY_PATH`, `SERVER_SSL_KEYSTORE`, `SERVER_SSL_KEYSTOREPASSWORD`, `SERVER_SSL_KEYALIAS`
+2. set `SECURITY_REQUIRESSL` to `false`
 
 ### Health Check
 This docker image provides a default health check script which is executed by the Dockerfile HEALTHCHECK command. A script is provided rather than a hard-coded command because when a command with ENV injections is put into the Dockerfile the ENVs are injected at build-time, and as a result if those values are overridden at runtime or by a child Dockerfile the command is *NOT* updated. Using a script the command is evaluated at run-time each time the script is called so the ENV injections are properly evaluated. This script is executed using the "HELATH_***" environment variables supplied above. The default health check script works by pinging the url `https://127.0.0.1:${SERVER_PORT}${serverContextPath}${HEALTH_CHECK_ENDPOINT}` and parsing the response, checking for the existence of `HEALTHY_RESPONSE_CONTAINS` within the returned response.
