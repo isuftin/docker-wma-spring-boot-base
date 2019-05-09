@@ -29,7 +29,7 @@ if [ -n "${TOMCAT_CERT_PATH}" ] && [ -n "${TOMCAT_KEY_PATH}" ] && [ -f "${TOMCAT
   openssl pkcs12 -export -in "$HOME/tomcat.pem" -inkey "$TOMCAT_KEY_PATH" -name "$keystoreSSLKey" -out "$HOME/tomcat.pkcs12" -password "pass:${keystorePassword}"
   keytool -v -importkeystore -deststorepass "$keystorePassword" -destkeystore "$keystoreLocation" -deststoretype PKCS12 -srckeystore "$HOME/tomcat.pkcs12" -srcstorepass "$keystorePassword" -srcstoretype PKCS12 -noprompt
 else
-  echo "WARNING: Tomcat cert and/or key not found at '$TOMCAT_CERT_PATH' and/or '$TOMCAT_KEY_PATH'. Keystore: '$keystoreLocation' will not be created."
+  echo "WARNING: Tomcat cert and/or key not found at '$TOMCAT_CERT_PATH' and/or '$TOMCAT_KEY_PATH'. Keystore will not be created."
 fi
 
 if [ -n "${CERT_IMPORT_DIRECTORY}" ] && [ -d "${CERT_IMPORT_DIRECTORY}" ]; then
